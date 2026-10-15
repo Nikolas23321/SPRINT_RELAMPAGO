@@ -1,18 +1,17 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Editar Projeto</title>
-</head>
-<body>
-    <h1>Editar Projeto</h1>
+{% extends 'core/base.html' %}
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Salvar alterações</button>
-    </form>
+{% block titulo %}Editar Projeto{% endblock %}
 
-    <a href="{% url 'lista_projetos' %}">Voltar para projetos</a>
-</body>
-</html>
+{% block conteudo %}
+
+<h2>Editar Projeto</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Salvar alterações</button>
+</form>
+
+<a href="{% url 'lista_projetos' %}">Voltar para projetos</a>
+
+{% endblock %}

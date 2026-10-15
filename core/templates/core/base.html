@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}Sistema de Projetos{% endblock %}</title>
+</head>
+<body>
+
+    <header>
+        <h1>Sistema de Projetos</h1>
+
+        <nav>
+            <a href="{% url 'lista_projetos' %}">Projetos</a>
+            |
+            <a href="{% url 'lista_tarefas' %}">Tarefas</a>
+        </nav>
+    </header>
+
+    <hr>
+
+    <main>
+        {% if messages %}
+            {% for message in messages %}
+                <div style="padding: 12px; margin: 10px 0; background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; border-radius: 5px;">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% block conteudo %}
+        {% endblock %}
+    </main>
+
+</body>
+</html>
