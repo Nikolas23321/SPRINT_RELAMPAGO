@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarefas</title>
+</head>
+<body>
+    <h1>Lista de Tarefas</h1>
+
+    <a href="{% url 'criar_tarefa' %}">Cadastrar tarefa</a>
+
+    {% for tarefa in tarefas %}
+        <div>
+            <h3>{{ tarefa.titulo }}</h3>
+            <p>Projeto: {{ tarefa.projeto.nome }}</p>
+            <p>Prioridade: {{ tarefa.prioridade }}</p>
+            <p>Concluída: {{ tarefa.concluido|yesno:"Sim,Não" }}</p>
+
+            <a href="{% url 'editar_tarefa' tarefa.pk %}">Editar</a>
+            <a href="{% url 'excluir_tarefa' tarefa.pk %}">Excluir</a>
+        </div>
+    {% empty %}
+        <p>Nenhuma tarefa cadastrada.</p>
+    {% endfor %}
+</body>
+</html>
