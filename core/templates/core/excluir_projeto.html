@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Excluir Projeto</title>
+</head>
+<body>
+    <h1>Excluir Projeto</h1>
+
+    <p>Tem certeza de que deseja excluir o projeto "{{ projeto.nome }}"?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Confirmar exclusão</button>
+    </form>
+
+    <a href="{% url 'lista_projetos' %}">Cancelar</a>
+</body>
+</html>
