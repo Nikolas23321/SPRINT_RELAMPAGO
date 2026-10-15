@@ -24,5 +24,5 @@ class Tarefa(models.Model):
         related_name='tarefas'
     )
 
-    def _str_(self):
+    def __str__(self):
         return self.titulo

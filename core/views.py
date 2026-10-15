@@ -3,7 +3,9 @@ from django.shortcuts import render, redirect
 # Create your views here.
 
 from .models import Projeto
-from .forms import ProjetoForm
+from .forms import ProjetoForm, TarefaForm
+from .models import Tarefa
+from django.contrib import messages
 
 def lista_projetos(request):
     projetos = Projeto.objects.all()
@@ -49,3 +51,40 @@ def excluir_projeto(request, id):
     return render(request, 'core/excluir_projeto.html', {
         'projeto': projeto
     })
+
+def lista_tarefas(request):
+    tarefas = Tarefa.objects.select_related('projeto').all()
+    return render(request, 'core/lista_tarefas.html', {
+        'tarefas': tarefas
+    })
+
+def criar_tarefa(request):
+    form = TarefaForm(request.POST or None)
+
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        messages.success(request, 'Tarefa cadastrada com sucesso!')
+        return redirect('lista_tarefas')
+
+    return render(request, 'core/form_tarefa.html', {'form': form})
+
+def editar_tarefa(request, pk):
+    tarefa = Tarefa.objects.get(pk=pk)
+    form = TarefaForm(request.POST or None, instance=tarefa)
+
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        messages.success(request, 'Tarefa atualizada com sucesso!')
+        return redirect('lista_tarefas')
+
+    return render(request, 'core/form_tarefa.html', {'form': form})
+
+
+def excluir_tarefa(request, pk):
+    tarefa = Tarefa.objects.get(pk=pk)
+
+    if request.method == 'POST':
+        tarefa.delete()
+        return redirect('lista_tarefas')
+
+    return render(request, 'core/excluir_tarefa.html', {'tarefa': tarefa})
